@@ -1,3 +1,42 @@
+// submit event from FORM to localstorage
+document.getElementById('issueInputForm').addEventListener('submit', saveIssue);
+
+function saveIssue(e) {
+    let issueDesc = document.getElementById('issueDescInput').value;
+    let issueSeverity = document.getElementById('issueSeverityInput').value
+    let issueAssingedTo = document.getElementById('issueAssingedToInput').value
+    let issueId = chance.guid();
+    let issueStatus = 'Open';
+
+    // issue object compilation
+    let issue = {
+        id: issueId,
+        description: issueDesc,
+        severity: issueSeverity,
+        assingedTo: issueAssingedTo,
+        status: issueStatus
+    }
+
+    // checking localstorage
+    if (localStorage.getItem('issues') == null) {
+        let issues = [];
+        issues.push(issue);
+        localStorage.setItem('issues', JSON.stringify(issues));
+    } else {
+        let issues = JSON.parse(localStorage.getItem('issues'));
+        issues.push(issue);
+        localStorage.setItem('issues', JSON.stringify(issues));
+    }
+
+    // reset FORM page issueInputForm
+    document.getElementById('issueInputForm').reset();
+
+    fetchIssues();
+
+    e.preventDefault();
+
+}
+
 // fetch issues from FORM and add to local storage func
 function fetchIssues() {
     let issues = JSON.parse(localStorage.getItem('issues'));
