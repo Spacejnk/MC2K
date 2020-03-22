@@ -37,6 +37,24 @@ function saveIssue(e) {
 
 }
 
+// compare and delete items from local storage
+function setStatusClosed(id) {
+    let issues = JSON.parse(localStorage.getItem('issues'));
+
+    for (let i = 0; i < issues.length; i++) {
+        if (issues[i].id == id) {
+            issues[i].status = 'Closed';
+        }
+    }
+
+    localStorage.setItem('issues', JSON.stringify(issues));
+
+    // update output
+    fetchIssues();
+
+}
+
+
 // fetch issues from FORM and add to local storage func
 function fetchIssues() {
     let issues = JSON.parse(localStorage.getItem('issues'));
