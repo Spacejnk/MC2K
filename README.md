@@ -1,4 +1,4 @@
-## mc2k
+## login-auth
 > Login form with authentication 
 ### Technologies
 * bcrypt
