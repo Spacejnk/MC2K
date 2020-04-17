@@ -1,16 +1,18 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
+    require('dotenv').config();
 }
 
-const express = require('express')
-const app = express()
-const bcrypt = require('bcrypt')
-const passport = require('passport')
-const flash = require('express-flash')
-const session = require('express-session')
-const methodOverride = require('method-override')
+const express = require('express');
+const app = express();
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const flash = require('express-flash');
+const session = require('express-session');
+const methodOverride = require('method-override');
+// Path
+const path = require('path');
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('./passport-config');
 initializePassport(
     passport, 
     email => users.find(user => user.email === email),
@@ -18,26 +20,29 @@ initializePassport(
 )
 
 
-const users = []
+const users = [];
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('css'));
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
-app.use(flash())
+app.use(flash());
 app.use(session({
     secret: 'secret', 
     resave: false,
     saveUninitialized: false
 }))
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride('_method'))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', {name: req.user.name})
+    res.render('index.ejs', {name: req.user.name});
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs')
+    res.render('login.ejs');
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -47,7 +52,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs')
+    res.render('register.ejs');
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) =>{
@@ -59,31 +64,31 @@ app.post('/register', checkNotAuthenticated, async (req, res) =>{
             email: req.body.email,
             password: hashedPassword
         })
-        res.redirect('/login')
+        res.redirect('/login');
         
     } catch {
-        res.redirect('/register')
+        res.redirect('/register');
     }
-    //console.log(users)
+    //console.log(users);
 })
 
 app.delete('/logout', (req, res) => {
-    req.logOut()
-    res.redirect('/login')
+    req.logOut();
+    res.redirect('/login');
 })
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return next()
+        return next();
     }
-    res.redirect('login')
+    res.redirect('login');
 }
 
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return res.redirect('/')
+        return res.redirect('/');
     }
-    next()
+    next();
 }
 
-app.listen(3000)
+app.listen(3000);

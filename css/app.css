@@ -1,0 +1,57 @@
+body {
+  background-color: powderblue;
+}
+h1, a {
+  color: rgb(0, 123, 255);
+}
+a {
+  text-decoration: none;
+}
+button {
+  color: darkorange;
+}
+p {
+  color: red;
+}
+
+.login-color {
+  color: red;
+}
+
+.register-color {
+  color: red;
+}
+
+input {
+  width: 60%;
+}
+
+input[type=text] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+label {
+  padding: 20px;
+}
+
+div {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.label-register {
+  margin: -5px;
+}
+
+.login-sign {
+  margin: -5px;
+}
+
+.x, a:link {
+  margin-top: 10px;
+  }
+
+

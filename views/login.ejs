@@ -1,17 +1,35 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/app.css" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+<div>
 <h1>Login</h1>
 <% if (messages.error) { %>
 <%= locals.messages.error %>
 <% } %>
 <form action="/login" method="POST">
-    <div>
+    <div class="login-sign">
         <label for="email">Email</label>
         <input type="text" id="email" name="email" required>
     </div>
-    <div>
+    <div class="login-sign">
         <label for="password">Password</label>
         <input type="text" id="password" name="password" required>
     </div>
     <button type="submit">Login</button>
 </form>
+<div class="x">
 <a href="/register">Register</a>
+</div>
+</div>
+</body>
+</html>
+
+
+
+
